@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cricket Score Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;                               
+            margin: 0;
+            padding: 20px;
+            background-image: url('https://wallpapercave.com/wp/wp3049884.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+        }
+
+        h1 {    
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 24px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        form {
+            margin-top: 30px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 5px;
+            padding: 20px;
+            display: inline-block;
+            text-align: left;
+        }
+
+        label {
+            display: inline-block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        select, input[type="text"], input[type="submit"] {
+            padding: 5px;
+            margin-bottom: 10px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 14px;
+        }
+
+        input[type="submit"] {
+            background-color: #333;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #666;
+        }  
+    </style>
+    <script>
+        function validateForm() {
+            var battingTeam = document.getElementById("batting_team").value;
+            var bowlingTeam = document.getElementById("bowling_team").value;
+            
+            if (battingTeam === bowlingTeam) {
+                alert("Bowling team cannot be the same as the batting team.");
+                return false; 
+            }
+            return true; 
+        }
+    </script>
+
+</head>
+<body>
+    <h1>Cricket Score Prediction</h1>
+    
+    <form method="POST" action="/predict" onsubmit="return validateForm();">
+        <label for="batting_team">Batting Team:</label>
+        <select name="batting_team" id="batting_team">
+            <option value="Chennai Super Kings">Chennai Super Kings</option>
+            <option value="Delhi Capitals">Delhi Capitals</option>
+            <option value="Kings XI Punjab">Kings XI Punjab</option>
+            <option value="Kolkata Knight Riders">Kolkata Knight Riders</option>
+            <option value="Mumbai Indians">Mumbai Indians</option>
+            <option value="Rajasthan Royals">Rajasthan Royals</option>
+            <option value="Royal Challengers Bangalore">Royal Challengers Bangalore</option>
+            <option value="Sunrisers Hyderabad">Sunrisers Hyderabad</option>
+        </select>
+        <br>
+        <label for="bowling_team">Bowling Team:</label>
+        <select name="bowling_team" id="bowling_team">
+            <option value="Delhi Capitals">Delhi Capitals</option>
+            <option value="Chennai Super Kings">Chennai Super Kings</option>
+            <option value="Kings XI Punjab">Kings XI Punjab</option>
+            <option value="Kolkata Knight Riders">Kolkata Knight Riders</option>
+            <option value="Mumbai Indians">Mumbai Indians</option>
+            <option value="Rajasthan Royals">Rajasthan Royals</option>
+            <option value="Royal Challengers Bangalore">Royal Challengers Bangalore</option>
+            <option value="Sunrisers Hyderabad">Sunrisers Hyderabad</option>
+        </select>
+        <br>
+        <label for="overs">Overs:</label>
+        <input type="text" id="overs" placeholder="Overs (>= 5.0) eg. 8.3" name="overs" required>
+        <br>
+        <label for="runs">Runs:</label>
+        <input type="text" id="runs" placeholder="Runs eg. 50" name="runs" required>
+        <br>
+        <label for="wickets">Wickets:</label>
+        <input type="text" id="wickets" placeholder="Wicktes eg. 2" name="wickets" required>
+        <br>
+        <label for="runs_in_prev_5">Runs in Previous 5 Overs:</label>
+        <input type="text" id="runs_in_prev_5" placeholder="Runs eg. 45" name="runs_in_prev_5" required>
+        <br>
+        <label for="wickets_in_prev_5">Wickets in Previous 5 Overs:</label>
+        <input type="text" id="wickets_in_prev_5" placeholder="Wickets eg. 3" name="wickets_in_prev_5" required>
+        <br>
+        <label for="venue">Venue:</label>
+        <select name="venue" id="venue">
+            <option value="Barsapara Cricket Stadium">Barsapara Cricket Stadium</option>
+            <option value="Arun Jaitley Stadium">Arun Jaitley Stadium</option>
+            <option value="Barabati Stadium">Barabati Stadium</option>
+            <option value="Brabourne Stadium">Brabourne Stadium</option>
+            <option value="Buffalo Park">Buffalo Park</option>
+            <option value="De Beers Diamond Oval">De Beers Diamond Oval</option>
+            <option value="Dr DY Patil Sports Academy">Dr DY Patil Sports Academy</option>
+            <option value="Dr. Y.S. Rajasekhara Reddy ACA-VDCA Cricket Stadium">Dr. Y.S. Rajasekhara Reddy ACA-VDCA Cricket Stadium</option>
+            <option value="Dubai International Cricket Stadium">Dubai International Cricket Stadium</option>
+            <option value="Eden Gardens">Eden Gardens</option>
+            <option value="Feroz Shah Kotla">Feroz Shah Kotla</option>
+            <option value="Himachal Pradesh Cricket Association Stadium">Himachal Pradesh Cricket Association Stadium</option>
+            <option value="Holkar Cricket Stadium">Holkar Cricket Stadium</option>
+            <option value="JSCA International Stadium Complex">JSCA International Stadium Complex</option>
+            <option value="Kingsmead">Kingsmead</option>
+            <option value="M Chinnaswamy Stadium">M Chinnaswamy Stadium</option>
+            <option value="MA Chidambaram Stadium">MA Chidambaram Stadium</option>
+            <option value="Maharashtra Cricket Association Stadium">Maharashtra Cricket Association Stadium</option>
+            <option value="Narendra Modi Stadium">Narendra Modi Stadium</option>
+            <option value="New Wanderers Stadium">New Wanderers Stadium</option>
+            <option value="Newlands">Newlands</option>
+            <option value="Punjab Cricket Association Stadium">Punjab Cricket Association Stadium</option>
+            <option value="Rajiv Gandhi International Stadium">Rajiv Gandhi International Stadium</option>
+            <option value="Sardar Patel Stadium">Sardar Patel Stadium</option>
+            <option value="Sawai Mansingh Stadium">Sawai Mansingh Stadium</option>
+            <option value="Sharjah Cricket Stadium">Sharjah Cricket Stadium</option>
+            <option value="Sheikh Zayed Stadium">Sheikh Zayed Stadium</option>
+            <option value="St George's Park">St George's Park</option>
+            <option value="SuperSport Park">SuperSport Park</option>
+            <option value="Wankhede Stadium">Wankhede Stadium</option>
+            <option value="Zayed Cricket Stadium">Zayed Cricket Stadium</option>
+        </select>
+        <br>
+        <input type="submit" value="Predict">
+    </form>
+    </div>
+</body>
+</html>
